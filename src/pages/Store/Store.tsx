@@ -1,9 +1,11 @@
+/* eslint-disable no-shadow */
 import SingleProduct from "components/SingleProduct/SingleProduct";
 import { useEffect, useState } from "react";
 import productHttpReq from "services/Product.services";
 
 function Store() {
     const [products, setProducts] = useState<any[]>([]);
+    // const { cart } = useSelector((state: any) => state);
 
     useEffect(() => {
         const fetchProduct = async () => {
