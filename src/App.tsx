@@ -4,16 +4,16 @@ import { Route, Routes } from "react-router-dom";
 
 function App() {
     return (
-        <>
+        <div className="bg-gray-100">
             <Navbar />
-            <div className="mx-auto max-w-6xl">
+            <main className="mx-auto max-w-7xl">
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
-                    <Route path="/store" element={<Store />} />
+                    <Route path="/shop" element={<Store />} />
                 </Routes>
-            </div>
-        </>
+            </main>
+        </div>
     );
 }
 
