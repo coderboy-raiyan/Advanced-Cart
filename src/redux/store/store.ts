@@ -9,4 +9,7 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer, composeWithDevTools());
 
+export type AppDispatch = ReturnType<typeof store.dispatch>;
+export type AppState = ReturnType<typeof store.getState>;
+
 export default store;
