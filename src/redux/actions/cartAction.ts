@@ -6,6 +6,14 @@ export function getItemQuantity(payload: any) {
         payload,
     };
 }
+
+export function getCurrentItem(payload: any) {
+    return {
+        type: "GET_CURRENT_ITEM",
+        payload,
+    };
+}
+
 export function increaseQuantity(payload: any) {
     return {
         type: "INCREASE_QUANTITY",

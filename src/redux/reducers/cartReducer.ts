@@ -3,22 +3,27 @@
 /* eslint-disable default-param-last */
 /* eslint-disable no-unused-vars */
 
-const initialState: { cartItem: any[] } = {
+const initialState: { cartItem: any[]; currentItem: any } = {
     cartItem: [],
+    currentItem: {},
 };
 
 const cartReducer = (state = initialState, action: { type: string; payload: any }) => {
     switch (action.type) {
-        case "GET_ITEM":
-            return state.cartItem.find((item: any) => item.id === action.payload)?.quantity || 0;
+        case "GET_CURRENT_ITEM":
+            return {
+                ...state,
+                currentItem: state.cartItem.find((item) => item.id === action.payload),
+            };
 
         case "INCREASE_QUANTITY":
-            const isAlreadyInCart = state.cartItem.find((item) => item.id === action.payload);
+            const isAlreadyInCart = state.cartItem.find((item) => item.id === action.payload.id);
+
             if (isAlreadyInCart) {
                 return {
                     ...state,
                     cartItem: state.cartItem.map((item) => {
-                        if (item.id === action.payload) {
+                        if (item.id === action.payload.id) {
                             return { ...item, quantity: item.quantity + 1 };
                         }
                         return item;
@@ -27,20 +32,20 @@ const cartReducer = (state = initialState, action: { type: string; payload: any 
             }
             return {
                 ...state,
-                cartItem: [...state.cartItem, { id: action.payload, quantity: 1 }],
+                cartItem: [...state.cartItem, { ...action.payload, quantity: 1 }],
             };
 
         case "DECREASE_QUANTITY":
             if (isAlreadyInCart?.quantity === 1) {
                 return {
                     ...state,
-                    cartItem: state.cartItem.filter((item) => item.id !== action.payload),
+                    cartItem: state.cartItem.filter((item) => item.id !== action.payload.id),
                 };
             }
             return {
                 ...state,
                 cartItem: state.cartItem.map((item) => {
-                    if (item.id === action.payload) {
+                    if (item.id === action.payload.id) {
                         return { ...item, quantity: item.quantity - 1 };
                     }
                     return item;
@@ -51,7 +56,7 @@ const cartReducer = (state = initialState, action: { type: string; payload: any 
             if (isAlreadyInCart) {
                 return {
                     ...state,
-                    cartItem: state.cartItem.filter((item) => item.id !== action.payload),
+                    cartItem: state.cartItem.filter((item) => item.id !== action.payload.id),
                 };
             }
             break;

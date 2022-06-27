@@ -12,13 +12,13 @@ const MAX_NUMBER = 5;
 const MIN_NUMBER = 1;
 
 function SingleProduct({ item }: { item: any }) {
+    const dispatch = useDispatch();
+
+    const [quantity] = useState(0);
+
     const [ratings] = useState(
         Math.floor(Math.random() * (MAX_NUMBER - MIN_NUMBER) + 1) + MIN_NUMBER
     );
-
-    const dispatch = useDispatch();
-
-    const quantity = 0;
 
     return (
         <div className="relative m-5 flex flex-col  bg-white p-10 shadow">
@@ -47,13 +47,27 @@ function SingleProduct({ item }: { item: any }) {
             <div className="mt-auto">
                 {quantity === 0 ? (
                     <button
-                        onClick={() => dispatch(increaseQuantity(item.id))}
+                        onClick={() => {
+                            dispatch(increaseQuantity(item));
+                        }}
                         className=" w-full rounded bg-yellow-400 py-2 text-sm font-semibold"
                         type="button"
                     >
                         Add to Cart
                     </button>
-                ) : null}
+                ) : (
+                    <>
+                        <p>{quantity}</p>
+                        <button
+                            onClick={() => {
+                                dispatch(increaseQuantity(item));
+                            }}
+                            type="button"
+                        >
+                            +
+                        </button>
+                    </>
+                )}
             </div>
         </div>
     );
