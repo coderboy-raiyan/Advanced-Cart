@@ -20,7 +20,11 @@ function Navbar() {
             <nav className="mx-auto flex max-w-6xl items-center justify-between ">
                 <div>
                     <Link to="/">
-                        <h1 className="text-xl font-bold text-indigo-500">Redux Shopping Cart</h1>
+                        <img
+                            className="w-32"
+                            src="https://icms-image.slatic.net/images/ims-web/bfe8de2c-b737-42ab-b1f1-576042ab0412.png"
+                            alt=""
+                        />
                     </Link>
                 </div>
 

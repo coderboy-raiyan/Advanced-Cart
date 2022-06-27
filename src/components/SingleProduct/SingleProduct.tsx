@@ -4,6 +4,7 @@
 
 import { useState } from "react";
 import Currency from "react-currency-formatter";
+import toast from "react-hot-toast";
 import { BsStarFill } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { increaseQuantity } from "redux/actions/cartAction";
@@ -49,6 +50,7 @@ function SingleProduct({ item }: { item: any }) {
                     <button
                         onClick={() => {
                             dispatch(increaseQuantity(item));
+                            toast.success("Product Added to the Cart");
                         }}
                         className=" w-full rounded bg-yellow-400 py-2 text-sm font-semibold"
                         type="button"

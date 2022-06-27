@@ -1,5 +1,6 @@
 import Navbar from "components/Navbar/Navbar";
 import { About, Store } from "pages";
+import { Toaster } from "react-hot-toast";
 import { Route, Routes } from "react-router-dom";
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
                     <Route path="/shop" element={<Store />} />
                 </Routes>
             </main>
+            <Toaster />
         </div>
     );
 }
