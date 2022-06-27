@@ -1,9 +1,12 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable react/no-array-index-key */
+
 import { useState } from "react";
 import Currency from "react-currency-formatter";
 import { BsStarFill } from "react-icons/bs";
-/* eslint-disable react/no-array-index-key */
+import { useDispatch } from "react-redux";
+import { increaseQuantity } from "redux/actions/cartAction";
 
 const MAX_NUMBER = 5;
 const MIN_NUMBER = 1;
@@ -12,6 +15,8 @@ function SingleProduct({ item }: { item: any }) {
     const [ratings] = useState(
         Math.floor(Math.random() * (MAX_NUMBER - MIN_NUMBER) + 1) + MIN_NUMBER
     );
+
+    const dispatch = useDispatch();
 
     const quantity = 0;
 
@@ -42,6 +47,7 @@ function SingleProduct({ item }: { item: any }) {
             <div className="mt-auto">
                 {quantity === 0 ? (
                     <button
+                        onClick={() => dispatch(increaseQuantity(item.id))}
                         className=" w-full rounded bg-yellow-400 py-2 text-sm font-semibold"
                         type="button"
                     >
