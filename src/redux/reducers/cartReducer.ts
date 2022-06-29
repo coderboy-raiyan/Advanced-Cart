@@ -3,9 +3,10 @@
 /* eslint-disable default-param-last */
 /* eslint-disable no-unused-vars */
 
-const initialState: { cartItem: any[]; currentItem: any } = {
+const initialState: { cartItem: any[]; currentItem: any; isCartOpen: boolean } = {
     cartItem: [],
     currentItem: {},
+    isCartOpen: false,
 };
 
 const cartReducer = (state = initialState, action: { type: string; payload: any }) => {
@@ -60,6 +61,17 @@ const cartReducer = (state = initialState, action: { type: string; payload: any 
                 };
             }
             break;
+
+        case "OPEN_CART":
+            return {
+                ...state,
+                isCartOpen: action.payload,
+            };
+        case "CLOSE_CART":
+            return {
+                ...state,
+                isCartOpen: action.payload,
+            };
         default:
             return state;
     }

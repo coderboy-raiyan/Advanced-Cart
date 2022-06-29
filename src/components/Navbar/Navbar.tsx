@@ -1,12 +1,18 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable no-return-assign */
 /* eslint-disable no-param-reassign */
+import ShoppingCart from "components/ShoppingCart/ShoppingCart";
 import { useEffect, useState } from "react";
 import { FiShoppingCart } from "react-icons/fi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
+import { openCart } from "redux/actions/cartAction";
 
 function Navbar() {
     const [itemsCount, setItemsCount] = useState(0);
+    const dispatch = useDispatch();
+
     const {
         cart: { cartItem },
     } = useSelector((state: any) => state);
@@ -20,11 +26,9 @@ function Navbar() {
             <nav className="mx-auto flex max-w-6xl items-center justify-between ">
                 <div>
                     <Link to="/">
-                        <img
-                            className="w-32"
-                            src="https://icms-image.slatic.net/images/ims-web/bfe8de2c-b737-42ab-b1f1-576042ab0412.png"
-                            alt=""
-                        />
+                        <h1 className="text-lg font-bold text-gray-500 drop-shadow">
+                            Redux Shopping Cart
+                        </h1>
                     </Link>
                 </div>
 
@@ -38,8 +42,11 @@ function Navbar() {
                     <li>
                         <NavLink to="/shop">Shop</NavLink>
                     </li>
-                    <li className="relative">
-                        <button type="button" className="rounded-full border p-3 text-lg">
+                    <li onClick={() => dispatch(openCart(true))} className="relative">
+                        <button
+                            type="button"
+                            className="rounded-full border p-3 text-lg hover:bg-gray-100"
+                        >
                             <FiShoppingCart />
                         </button>
                         <span className="absolute inset-y-5 inset-x-8 flex h-6 w-6 items-center  justify-center rounded-full bg-yellow-400 text-sm font-bold">
@@ -48,6 +55,8 @@ function Navbar() {
                     </li>
                 </ul>
             </nav>
+            {/* cart */}
+            <ShoppingCart />
         </div>
     );
 }

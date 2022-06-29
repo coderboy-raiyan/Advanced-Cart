@@ -32,3 +32,16 @@ export function removeCart(payload: any) {
         payload,
     };
 }
+
+export function openCart(payload: any) {
+    return {
+        type: "OPEN_CART",
+        payload,
+    };
+}
+export function closeCart(payload: any) {
+    return {
+        type: "CLOSE_CART",
+        payload,
+    };
+}
