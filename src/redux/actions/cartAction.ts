@@ -1,47 +1,44 @@
+/* eslint-disable no-undef */
 /* eslint-disable import/prefer-default-export */
 
-export function getItemQuantity(payload: any) {
+import { cartActionTypes } from "types/CartActiontypes";
+import { IProduct } from "types/Product";
+
+export function getCurrentItem(payload: IProduct): IGetCurrentItem {
     return {
-        type: "GET_ITEM",
+        type: cartActionTypes.GET_CURRENT_ITEM,
         payload,
     };
 }
 
-export function getCurrentItem(payload: any) {
+export function increaseQuantity(payload: IProduct): IIncreaseQuantity {
     return {
-        type: "GET_CURRENT_ITEM",
+        type: cartActionTypes.INCREASE_QUANTITY,
+        payload,
+    };
+}
+export function decreaseQuantity(payload: IProduct): IDecreaseQuantity {
+    return {
+        type: cartActionTypes.DECREASE_QUANTITY,
+        payload,
+    };
+}
+export function removeCart(payload: IProduct): IRemoveCart {
+    return {
+        type: cartActionTypes.REMOVE_CART,
         payload,
     };
 }
 
-export function increaseQuantity(payload: any) {
+export function openCart(payload: boolean): IOpenCart {
     return {
-        type: "INCREASE_QUANTITY",
+        type: cartActionTypes.OPEN_CART,
         payload,
     };
 }
-export function decreaseQuantity(payload: any) {
+export function closeCart(payload: boolean): ICloseCart {
     return {
-        type: "DECREASE_QUANTITY",
-        payload,
-    };
-}
-export function removeCart(payload: any) {
-    return {
-        type: "REMOVE_CART",
-        payload,
-    };
-}
-
-export function openCart(payload: any) {
-    return {
-        type: "OPEN_CART",
-        payload,
-    };
-}
-export function closeCart(payload: any) {
-    return {
-        type: "CLOSE_CART",
+        type: cartActionTypes.CLOSE_CART,
         payload,
     };
 }

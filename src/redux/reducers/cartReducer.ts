@@ -1,31 +1,41 @@
+/* eslint-disable no-undef */
 /* eslint-disable consistent-return */
 /* eslint-disable no-case-declarations */
 /* eslint-disable default-param-last */
 /* eslint-disable no-unused-vars */
 
-const initialState: { cartItem: any[]; currentItem: any; isCartOpen: boolean } = {
+import { cartActionTypes } from "types/CartActiontypes";
+import { IProduct } from "types/Product";
+
+interface ICartStore {
+    cartItem: IProduct[];
+    currentItem: IProduct;
+    isCartOpen: boolean;
+}
+
+const initialState: ICartStore = {
     cartItem: [],
-    currentItem: {},
+    currentItem: {} as IProduct,
     isCartOpen: false,
 };
 
-const cartReducer = (state = initialState, action: { type: string; payload: any }) => {
+const cartReducer = (state = initialState, action: AllCartActionTypes) => {
     switch (action.type) {
-        case "GET_CURRENT_ITEM":
+        case cartActionTypes.GET_CURRENT_ITEM:
             return {
                 ...state,
-                currentItem: state.cartItem.find((item) => item.id === action.payload),
+                currentItem: state.cartItem.find((item: IProduct) => item.id === action.payload.id),
             };
 
-        case "INCREASE_QUANTITY":
+        case cartActionTypes.INCREASE_QUANTITY:
             const isAlreadyInCart = state.cartItem.find((item) => item.id === action.payload.id);
 
             if (isAlreadyInCart) {
                 return {
                     ...state,
-                    cartItem: state.cartItem.map((item) => {
+                    cartItem: state.cartItem.map((item: IProduct) => {
                         if (item.id === action.payload.id) {
-                            return { ...item, quantity: item.quantity + 1 };
+                            return { ...item, quantity: item.quantity! + 1 };
                         }
                         return item;
                     }),
@@ -36,7 +46,7 @@ const cartReducer = (state = initialState, action: { type: string; payload: any 
                 cartItem: [...state.cartItem, { ...action.payload, quantity: 1 }],
             };
 
-        case "DECREASE_QUANTITY":
+        case cartActionTypes.DECREASE_QUANTITY:
             if (isAlreadyInCart?.quantity === 1) {
                 return {
                     ...state,
@@ -45,15 +55,15 @@ const cartReducer = (state = initialState, action: { type: string; payload: any 
             }
             return {
                 ...state,
-                cartItem: state.cartItem.map((item) => {
+                cartItem: state.cartItem.map((item: IProduct) => {
                     if (item.id === action.payload.id) {
-                        return { ...item, quantity: item.quantity - 1 };
+                        return { ...item, quantity: item.quantity! - 1 };
                     }
                     return item;
                 }),
             };
 
-        case "REMOVE_CART":
+        case cartActionTypes.REMOVE_CART:
             if (isAlreadyInCart) {
                 return {
                     ...state,
@@ -62,12 +72,12 @@ const cartReducer = (state = initialState, action: { type: string; payload: any 
             }
             break;
 
-        case "OPEN_CART":
+        case cartActionTypes.OPEN_CART:
             return {
                 ...state,
                 isCartOpen: action.payload,
             };
-        case "CLOSE_CART":
+        case cartActionTypes.CLOSE_CART:
             return {
                 ...state,
                 isCartOpen: action.payload,

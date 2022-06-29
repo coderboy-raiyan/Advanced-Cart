@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/no-array-index-key */
@@ -8,11 +9,12 @@ import toast from "react-hot-toast";
 import { BsStarFill } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { increaseQuantity } from "redux/actions/cartAction";
+import { IProduct } from "types/Product";
 
 const MAX_NUMBER = 5;
 const MIN_NUMBER = 1;
 
-function SingleProduct({ item }: { item: any }) {
+function SingleProduct({ item }: { item: IProduct }) {
     const dispatch = useDispatch();
 
     const [quantity] = useState(0);
