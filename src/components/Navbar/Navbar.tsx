@@ -23,23 +23,23 @@ function Navbar() {
 
     return (
         <div className="bg-white py-3 shadow">
-            <nav className="mx-auto flex max-w-6xl items-center justify-between ">
+            <nav className="mx-4 flex max-w-6xl items-center justify-between lg:mx-auto ">
                 <div>
                     <Link to="/">
-                        <h1 className="text-lg font-bold text-gray-500 drop-shadow">
+                        <h1 className="text-sm font-bold text-gray-500 drop-shadow sm:text-lg">
                             Redux Shopping Cart
                         </h1>
                     </Link>
                 </div>
 
                 <ul className="flex items-center space-x-6 text-sm font-semibold">
-                    <li>
+                    <li className="hidden lg:inline-flex">
                         <NavLink to="/">Home</NavLink>
                     </li>
-                    <li>
+                    <li className="hidden lg:inline-flex">
                         <NavLink to="/about">About</NavLink>
                     </li>
-                    <li>
+                    <li className="hidden lg:inline-flex">
                         <NavLink to="/shop">Shop</NavLink>
                     </li>
                     <li onClick={() => dispatch(openCart(true))} className="relative">
