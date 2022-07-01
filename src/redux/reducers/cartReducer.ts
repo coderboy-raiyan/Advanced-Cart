@@ -20,6 +20,7 @@ const initialState: ICartStore = {
 };
 
 const cartReducer = (state = initialState, action: AllCartActionTypes) => {
+    const isAlreadyInCart = state.cartItem.find((item) => item.id === action.payload.id);
     switch (action.type) {
         case cartActionTypes.GET_CURRENT_ITEM:
             return {
@@ -28,8 +29,6 @@ const cartReducer = (state = initialState, action: AllCartActionTypes) => {
             };
 
         case cartActionTypes.INCREASE_QUANTITY:
-            const isAlreadyInCart = state.cartItem.find((item) => item.id === action.payload.id);
-
             if (isAlreadyInCart) {
                 return {
                     ...state,

@@ -1,19 +1,41 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
+import { useEffect, useState } from "react";
 import Currency from "react-currency-formatter";
 import { AiOutlineClose } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { closeCart } from "redux/actions/cartAction";
+import {
+    closeCart,
+    decreaseQuantity,
+    increaseQuantity,
+    removeCart,
+} from "redux/actions/cartAction";
 import { IProduct } from "types/Product";
 
 function ShoppingCart() {
     const dispatch = useDispatch();
+    const [totalPrice, setTotalPrice] = useState(0);
+
     const {
         cart: { isCartOpen },
     } = useSelector((state: any) => state);
     const {
         cart: { cartItem },
     } = useSelector((state: any) => state);
+
+    useEffect(() => {
+        let quantity = 0;
+        let price = 0;
+
+        cartItem.reduce((acc: number, curr: IProduct) => {
+            quantity += curr.quantity!;
+            price += curr.price;
+
+            return acc;
+        }, 0);
+
+        setTotalPrice(price * quantity);
+    }, [cartItem]);
 
     return (
         <>
@@ -45,7 +67,10 @@ function ShoppingCart() {
                 {/* products */}
                 <div className="h-[400px] overflow-y-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300">
                     {cartItem.map((item: IProduct) => (
-                        <div className="my-2 flex items-center justify-center space-x-6 space-y-2 border-b py-2 px-6">
+                        <div
+                            key={item.id}
+                            className="relative my-2 flex items-center justify-center space-x-6 space-y-2 border-b py-2 px-6"
+                        >
                             <img
                                 className="h-[60px] w-[60px]  object-contain"
                                 src={item?.image}
@@ -57,11 +82,25 @@ function ShoppingCart() {
                                 <p className="w-3/4 text-[14px] font-medium">{item.title}</p>
 
                                 <div className="flex w-24 items-center justify-center space-x-3 rounded-full border-2 text-sm">
-                                    <button className="border-r-2 p-1" type="button">
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            dispatch(decreaseQuantity(item));
+                                        }}
+                                        className="border-r-2 p-1"
+                                        type="button"
+                                    >
                                         -
                                     </button>
                                     <p className=" p-1">{item.quantity}</p>
-                                    <button className="border-l-2 p-1" type="button">
+                                    <button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            dispatch(increaseQuantity(item));
+                                        }}
+                                        className="border-l-2 p-1"
+                                        type="button"
+                                    >
                                         +
                                     </button>
                                 </div>
@@ -73,6 +112,17 @@ function ShoppingCart() {
                                     </span>
                                 </p>
                             </div>
+                            {/* remove button */}
+                            <button
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    dispatch(removeCart(item));
+                                }}
+                                className="absolute right-1 top-0 flex  h-6 w-6 items-center justify-center rounded-full transition-all hover:bg-gray-100  hover:shadow"
+                                type="button"
+                            >
+                                <AiOutlineClose />
+                            </button>
                         </div>
                     ))}
                 </div>
@@ -80,7 +130,10 @@ function ShoppingCart() {
                 {/* Subtotal */}
                 <div className="border">
                     <p className="flex justify-between p-4 text-xl font-medium uppercase">
-                        Subtotal : <span className="text-orange-500">0$</span>
+                        Subtotal :{" "}
+                        <span className="text-orange-500">
+                            <Currency quantity={totalPrice} currency="USD" />
+                        </span>
                     </p>
                 </div>
 
