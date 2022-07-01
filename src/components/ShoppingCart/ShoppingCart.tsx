@@ -48,8 +48,8 @@ function ShoppingCart() {
             <div
                 onClick={() => dispatch(closeCart(false))}
                 className={`fixed ${
-                    isCartOpen ? "right-0" : "-right-[100%]"
-                } top-0 z-[101] h-full  overflow-y-auto bg-white shadow transition-all lg:w-[25%]`}
+                    isCartOpen ? "right-0" : "-right-full"
+                } top-0 z-[101] h-full  w-full overflow-y-auto bg-white shadow transition-all md:w-[25%] lg:w-[25%]`}
             >
                 {/* Cart Header */}
                 <div className="flex  items-center justify-between p-4">
