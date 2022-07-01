@@ -22,7 +22,7 @@ function Navbar() {
     }, [cartItem]);
 
     return (
-        <div className="bg-white py-3 shadow">
+        <div className="sticky top-0 z-10 bg-white py-3 shadow">
             <nav className="mx-4 flex max-w-6xl items-center justify-between lg:mx-auto ">
                 <div>
                     <Link to="/">
